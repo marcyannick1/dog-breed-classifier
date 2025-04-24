@@ -1,13 +1,21 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
-async def root():
-    return {"message": "Hello World"}
+def root():
+    return {"message": "API opérationnelle"}
 
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+@app.post("/predict")
+async def predict(file: UploadFile = File(...)):
+    return {"prediction": "stub", "labels": ["Chihuahua", "Beagle", "Golden"]}
