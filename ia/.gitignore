@@ -2,3 +2,4 @@ Stanford_Dogs_Dataset
 /api/model/dog_breed_classifier.h5
 /.venv/
 /.idea/
+venv/
