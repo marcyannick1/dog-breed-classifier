@@ -10,7 +10,7 @@ import requests
 from PIL import Image
 
 # Charger le modèle
-model = tf.keras.models.load_model('model/dog_breed_classifier_mobileNet.h5')
+model = tf.keras.models.load_model('model/dog_breed_classifier.h5')
 
 # Récupérer les noms des classes, triés pour correspondre à flow_from_directory
 train_dir = '../ia/Stanford_Dogs_Dataset/train'

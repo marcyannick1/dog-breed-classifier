@@ -5,6 +5,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import GlobalAveragePooling2D, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 import os
+import matplotlib.pyplot as plt
 
 # Chemins
 train_dir = "Stanford_Dogs_Dataset/train"
@@ -50,11 +51,33 @@ model = Model(inputs=base_model.input, outputs=predictions)
 model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Entraînement
-model.fit(
+history = model.fit(
     train_generator,
     epochs=10,
     validation_data=test_generator
 )
+
+# Schémas: Évolution de la perte (loss)
+plt.figure()
+plt.plot(history.history['loss'], label='Perte entraînement')
+plt.plot(history.history['val_loss'], label='Perte validation')
+plt.legend()
+plt.title('Évolution de la perte')
+plt.xlabel('Époques')
+plt.ylabel('Loss')
+plt.grid()
+plt.show()
+
+# Schémas: Évolution de la précision (accuracy)
+plt.figure()
+plt.plot(history.history['accuracy'], label='Accuracy entraînement')
+plt.plot(history.history['val_accuracy'], label='Accuracy validation')
+plt.legend()
+plt.title('Évolution de la précision')
+plt.xlabel('Époques')
+plt.ylabel('Accuracy')
+plt.grid()
+plt.show()
 
 # Évaluation
 loss, acc = model.evaluate(test_generator)
